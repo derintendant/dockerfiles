@@ -1,0 +1,3 @@
+[derintendant]
+SigLevel = Never
+Server = https://misc.derintendant.de/pacman/

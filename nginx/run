@@ -1,0 +1,15 @@
+#!/bin/sh
+
+docker rm nginx
+docker run \
+	--name nginx \
+	--link btsync:btsync
+	--restart="always" \
+	--volumes-from nginx_config \
+	--volumes-from webfiles \
+	--volumes-from ssl \
+	-v /var/run/php5-fpm.sock:/var/run/php5-fpm.sock \
+	-p 80:80 \
+	-p 443:443 \
+	-d \
+	derintendant/nginx

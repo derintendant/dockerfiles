@@ -1,0 +1,12 @@
+#!/bin/sh
+
+docker rm -f btsync
+
+docker run \
+--name btsync \
+--restart=always \
+-d \
+-p 127.0.0.1:8888:8888 \
+-p 55555:55555 \
+--volumes-from btsync_data \
+derintendant/btsync \

@@ -1,19 +1,15 @@
-FROM base/arch
+FROM base/archlinux
 
 RUN pacman -Sy && pacman -S --noconfirm curl
 RUN curl -o /usr/bin/btsync.tar.gz http://download-lb.utorrent.com/endpoint/btsync/os/linux-x64/track/stable
 RUN cd /usr/bin && tar -xzvf btsync.tar.gz && rm btsync.tar.gz
-#RUN mkdir -p /data/.sync
 RUN mkdir -p /var/run/btsync
 
-ADD btsync.conf /btsync.conf
+COPY btsync.conf /btsync.conf
 
-VOLUME [/data]
+VOLUME /data
 
 EXPOSE 8888
 EXPOSE 55555
 
-ENTRYPOINT ["btsync"]
-
-CMD ["--config", "/btsync.conf", "--nodaemon"]
-
+CMD ["btsync", "--config", "/btsync.conf", "--nodaemon"]
